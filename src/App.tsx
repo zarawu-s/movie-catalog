@@ -8,6 +8,7 @@ const App: React.FC = () => {
 
   const [movie, setMovie] = useState<string>("");
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +23,9 @@ const App: React.FC = () => {
     <div className="App">
       <span className="heading">Movie Catalog</span>
       <AddMovieField movie={movie} setMovie={setMovie} handleAdd={handleAdd} />
-      <MovieList movies={movies} setMovies={setMovies} />
+      <MovieList 
+      movies={movies} setMovies={setMovies} 
+      watchedMovies={watchedMovies} setWatchedMovies={setWatchedMovies} />
     </div>
   );
 }

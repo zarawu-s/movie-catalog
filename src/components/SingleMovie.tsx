@@ -3,6 +3,8 @@ import { Movie } from '../models/movie';
 import {MdDelete} from "react-icons/md";
 import {FaEdit, FaEye, FaEyeSlash} from "react-icons/fa"
 import "./styles.css"
+import {draggable} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import invariant from 'tiny-invariant';
 
 
 interface Props {
@@ -12,6 +14,18 @@ interface Props {
 }
 
 const SingleMovie: React.FC<Props> = ({movie, movies, setMovies}: Props) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const el = formRef.current;
+    invariant(el);
+
+    return draggable({
+      element: el,
+    });
+  }, []);
+
+
   const [edit, setEdit] = useState<boolean>(false);
   const [editMovie, setEditMovie] = useState<string>(movie.name);
   
@@ -38,7 +52,7 @@ const SingleMovie: React.FC<Props> = ({movie, movies, setMovies}: Props) => {
     inputRef.current?.focus();
   }, [edit]);
   
-  return <form className="movies__single" onSubmit={(e) => handleEdit(e, movie.id)}>
+  return <form ref={formRef} className="movies__single" onSubmit={(e) => handleEdit(e, movie.id)}>
     {
       edit ? (
         <input 
