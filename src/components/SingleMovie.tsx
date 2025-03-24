@@ -10,10 +10,12 @@ import invariant from 'tiny-invariant';
 interface Props {
     movie: Movie;
     movies: Movie[];
-    setMovies: React.Dispatch<React.SetStateAction<Movie[]>>
+    setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+    watchedMovies: Movie[];
+    setWatchedMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
-const SingleMovie: React.FC<Props> = ({movie, movies, setMovies}: Props) => {
+const SingleMovie: React.FC<Props> = ({movie, movies, setMovies, watchedMovies, setWatchedMovies}: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -42,8 +44,17 @@ const SingleMovie: React.FC<Props> = ({movie, movies, setMovies}: Props) => {
   };
   
   const handleWatched = (id: number) => {
-    setMovies(movies.map((movie) => 
-      movie.id === id ? {...movie, watched: !movie.watched} : movie))
+    let movieWatchlist = movies.find((m) => (m.id === id));
+    let movieWatched = watchedMovies.find((m) => (m.id === id));
+    if (movieWatched) {
+      setMovies([...movies, {id: movieWatched?.id, name: movieWatched?.name, watched: false}]);
+      setWatchedMovies(watchedMovies.filter((m) => (m.id !== movieWatched?.id)));
+    }
+    else if (movieWatchlist)
+    {
+        setWatchedMovies([...watchedMovies, {id: movieWatchlist?.id, name: movieWatchlist?.name, watched: true}]);
+        setMovies(movies.filter((m) => (m.id !== movieWatchlist?.id)));
+    }
   };
 
   const inputRef = useRef<HTMLInputElement>(null);

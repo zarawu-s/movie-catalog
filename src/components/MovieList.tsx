@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./styles.css"
 import { Movie } from '../models/movie'
 import SingleMovie from './SingleMovie'
@@ -10,16 +10,18 @@ interface Props {
     setWatchedMovies: React.Dispatch<React.SetStateAction<Movie[]>>
 }
 
-const MovieList: React.FC<Props> = ({movies, setMovies}: Props) => {
+const MovieList: React.FC<Props> = ({movies, setMovies, watchedMovies, setWatchedMovies}: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  
   return (
-    <div className="container">
+    <div ref={ref} className="container">
       <div className="movies">
         <b className="movies__heading">
           Watchlist
         </b>
       {
         movies.map((movie) => (
-          <SingleMovie movie={movie} movies={movies} key={movie.id} setMovies={setMovies} />
+          <SingleMovie movie={movie} movies={movies} key={movie.id} setMovies={setMovies} watchedMovies={watchedMovies} setWatchedMovies={setWatchedMovies} />
         ))
       }
       </div>
@@ -28,8 +30,8 @@ const MovieList: React.FC<Props> = ({movies, setMovies}: Props) => {
           Watched
         </i>
       {
-        movies.map((movie) => (
-          <SingleMovie movie={movie} movies={movies} key={movie.id} setMovies={setMovies} />
+        watchedMovies.map((movie) => (
+          <SingleMovie movie={movie} movies={movies} key={movie.id} setMovies={setMovies} watchedMovies={watchedMovies} setWatchedMovies={setWatchedMovies}/>
         ))
       }
       </div>
