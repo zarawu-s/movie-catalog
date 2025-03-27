@@ -1,4 +1,4 @@
-An app where you can add movies (movie names) to a list and edit and/or delete them. You can set the movie as watched which moves it to 'Watched' list. You can also move movies from one list to another by dragging and dropping it.<br>
+An app where you can add movies (movie names) to a list and edit and/or delete them. You can set the movie as watched which moves it to 'Watched' list. You can also move movies from one list to another by dragging and dropping them.<br>
 
 <img src="assets/images/example.jpg" />
 
