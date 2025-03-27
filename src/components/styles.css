@@ -76,6 +76,14 @@
     transition: 0.2;
 }
 
+.null-movie {
+    display: flex;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 15px 10px 0;
+    background-color: transparent;
+}
+
 .movies__single:hover {
     box-shadow: 0 0 10px black;
     transform: scale(1.05);
@@ -100,6 +108,10 @@
     margin-left:  10px;
     font-size: 25px;
     cursor: pointer;
+}
+
+.opacity-50 {
+    opacity: 50%;
 }
 
 @media (max-width: 1100px) {
